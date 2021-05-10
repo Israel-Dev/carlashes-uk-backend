@@ -1,0 +1,3 @@
+{
+    "ignore": ["src/config/g.calendar/token.json"]
+}

@@ -1,0 +1,7 @@
+/build
+/node_modules
+/env
+/src/config/g.calendar/token.json
+
+package-lock.json
+yarn.lock
