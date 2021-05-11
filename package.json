@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && env-cmd -f ./env/prod.env node --max_old_space_size=900 ./build/index.js",
+    "start": "tsc && env-cmd -f ./env/prod.env node --max_old_space_size=3900 ./build/index.js",
     "build": "tsc",
     "build-dev": "tsc && env-cmd -f ./env/dev.env node ./build/index.js",
     "deploy": "tsc && cd .. && git subtree push --prefix backend/ heroku master",
