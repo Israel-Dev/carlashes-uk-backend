@@ -14,7 +14,7 @@ whitelist.push(WEBSITE as string)
 
 const corsOptions = {
     origin: (origin: any, callback: Function) => {
-        if (whitelist.indexOf(origin) !== -1) {
+        if (whitelist.indexOf(origin) !== -1 || !origin) {
             callback(null, true)
         } else {
             callback(new Error("Not allowed by CORS"))
