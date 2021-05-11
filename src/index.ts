@@ -6,9 +6,9 @@ import resourceRoute from './api/routes/resource.route'
 
 const app = express()
 
-const { PORT, WEBSITE } = process.env
+const { PORT, WEBSITE, WHITELISTED_URLS } = process.env
 
-const whitelist = ["https://carlashes.uk", "https://www.carlashes.uk"]
+const whitelist = JSON.parse(WHITELISTED_URLS as string)
 
 whitelist.push(WEBSITE as string)
 
