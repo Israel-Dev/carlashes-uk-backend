@@ -35,9 +35,9 @@ const controller = {
                         products: products as any[]
                     }
                 )
-                res.status(200).send({message: "Your payment was sucessfull, you'll receive a confimation email in a couple of minutes, it may reach the spam inbox in some emails"})
+                return res.status(200).send({message: "Your payment was sucessfull, you'll receive a confimation email in a couple of minutes, it may reach the spam inbox in some emails"})
             }
-
+            res.status(404).send({message: "Your payment was cancelled or an error happened, please try again"})
         } catch (e) {
             console.error(e)
             res.status(500).send()

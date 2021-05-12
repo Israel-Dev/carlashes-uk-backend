@@ -89,7 +89,7 @@ class PurchaseService {
 
             const stripeSession = await stripe.checkout.sessions.retrieve(order.stripeSessionId)
 
-            order.clientEmail = stripeSession.customer_details.email
+            order.clientEmail = stripeSession.customer_details?.email
 
             await order.save()
 
@@ -98,6 +98,7 @@ class PurchaseService {
             }
         } catch (e) {
             console.error(e)
+            return false
         }
     }
 }
