@@ -9,6 +9,7 @@
     "build-dev": "tsc && env-cmd -f ./env/dev.env node ./build/index.js",
     "deploy": "tsc && cd .. && git subtree push --prefix backend/ heroku master",
     "dev": "env-cmd -f ./env/dev.env nodemon --config src/config/nodemon/nodemon.json --exec ts-node src/index.ts",
+    "dev-prod": "env-cmd -f ./env/prod.env nodemon --config src/config/nodemon/nodemon.json --exec ts-node src/index.ts",
     "get-calendar-token-dev": "env-cmd -f ./env/dev.env ts-node src/config/g.calendar/g.calendar.index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

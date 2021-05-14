@@ -116,7 +116,7 @@ class EmailService {
                         </table>
                         <br />
                         <br />
-                        <a href="${WEBSITE}/appointment-confirmed?event_ref=${eventRef}" style="background-color: #452F80; color: white; padding: 15px; border-radius: 10px;">
+                        <a href="${WEBSITE}/appointment-confirmed?event_ref=${eventRef}" target="_blank" style="background-color: #452F80; color: white; padding: 15px; border-radius: 10px;">
                             Confirm appointment
                         </a>
                         <br />
