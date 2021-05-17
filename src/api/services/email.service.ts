@@ -36,13 +36,13 @@ class EmailService {
                 html: `
                 <div style="text-align: center; width: 100%; max-width: 700px;">
                     <div style="background-color: white;">
-                        <h2 style="color: #452F80">Carlashes - UK</h2>C
-                        <h3 style="color: #452F80">Your request was sent, ${clientName}</h3>
+                        <h2 style="color: #498999">Carlashes - UK</h2>
+                        <h3 style="color: #498999">Your request was sent, ${clientName}</h3>
                         <p>As soon as we can, we'll confirm your appointment and you'll be notified.</p>
                     </div>
-                    <div style="background-color: #F3D4D2;">
+                    <div style="background-color: #FFE2C7;">
                         <table style="width:100%" style="text-align: center; margin: 25px 0; border: solid 1px #595858d1;">
-                            <tr style="text-align: center; color: #452F80; border: solid 1px #595858d1;">
+                            <tr style="text-align: center; color: #498999; border: solid 1px #595858d1;">
                                 <th style="border: solid 1px #595858d1;">Start Time</th>
                                 <th style="border: solid 1px #595858d1;">End Time</th>
                                 <th style="border: solid 1px #595858d1;">Treatment</th>
@@ -92,12 +92,12 @@ class EmailService {
                 html: `
                 <div style="text-align: center; width: 100%; max-width: 700px;">
                     <div style="background-color: white;">
-                        <h2 style="color: #452F80">Carlashes - UK</h2>
-                        <h3 style="color: #452F80">New Appointment for - ${clientName}</h3>
+                        <h2 style="color: #498999">Carlashes - UK</h2>
+                        <h3 style="color: #498999">New Appointment for - ${clientName}</h3>
                     </div>
-                    <div style="background-color: #F3D4D2;">
+                    <div style="background-color: #FFE2C7;">
                         <table style="width:100%" style="text-align: center; margin: 25px 0; border: solid 1px #595858d1;">
-                            <tr style="text-align: center; color: #452F80; border: solid 1px #595858d1;">
+                            <tr style="text-align: center; color: #498999; border: solid 1px #595858d1;">
                                 <th style="border: solid 1px #595858d1;">Start Time</th>
                                 <th style="border: solid 1px #595858d1;">End Time</th>
                                 <th style="border: solid 1px #595858d1;">Treatment</th>
@@ -116,7 +116,7 @@ class EmailService {
                         </table>
                         <br />
                         <br />
-                        <a href="${WEBSITE}/appointment-confirmed?event_ref=${eventRef}" target="_blank" style="background-color: #452F80; color: white; padding: 15px; border-radius: 10px;">
+                        <a href="${WEBSITE}/appointment-confirmed?event_ref=${eventRef}" target="_blank" style="background-color: #498999; color: white; padding: 15px; border-radius: 10px;">
                             Confirm appointment
                         </a>
                         <br />
@@ -151,17 +151,17 @@ class EmailService {
                 html: `
                 <div style="text-align: center; width: 100%; max-width: 700px;">
                     <div style="background-color: white;">
-                        <h2 style="color: #452F80">Carlashes - UK </h2>
-                        <h3 style="color: #452F80">
+                        <h2 style="color: #498999">Carlashes - UK </h2>
+                        <h3 style="color: #498999">
                             <u>
                                 Your appointment is confirmed, ${details.clientName}!
                             </u>
                             <p>See you soon ;)</p>
                         </h3>
                     </div>
-                    <div style="background-color: #F3D4D2;">
+                    <div style="background-color: #FFE2C7;">
                         <table style="width:100%" style="text-align: center; margin: 25px 0; border: solid 1px #595858d1;">
-                            <tr style="text-align: center; color: #452F80; border: solid 1px #595858d1;">
+                            <tr style="text-align: center; color: #498999; border: solid 1px #595858d1;">
                                 <th style="border: solid 1px #595858d1;">Start Time</th>
                                 <th style="border: solid 1px #595858d1;">End Time</th>
                                 <th style="border: solid 1px #595858d1;">Treatment</th>
@@ -249,7 +249,7 @@ class EmailService {
     }
 
     body a {
-      color: #452f80;
+      color: #498999;
       text-decoration: none;
     }
 
@@ -361,7 +361,7 @@ class EmailService {
 </head>
 
 <body>
-  <center class="wrapper" data-link-color="#452f80"
+  <center class="wrapper" data-link-color="#498999"
     data-body-style="font-size:16px; font-family:times new roman,times,serif; color:#516775; background-color:#FFFFFF;">
     <div class="webkit">
       <table cellpadding="0" cellspacing="0" border="0" width="100%" class="wrapper" bgcolor="#FFFFFF">
@@ -382,7 +382,7 @@ class EmailService {
                           style="width:100%; max-width:600px;" align="center">
                           <tr>
                             <td role="modules-container"
-                              style="padding:0px 0px 0px 0px; color:#516775; text-align:left;" bgcolor="#f3d4d2"
+                              style="padding:0px 0px 0px 0px; color:#516775; text-align:left;" bgcolor="#FFE2C7"
                               width="100%" align="left">
                               <table class="module preheader preheader-hide" role="module" data-type="preheader"
                                 border="0" cellpadding="0" cellspacing="0" width="100%"
@@ -402,7 +402,7 @@ class EmailService {
                                       height="100%" valign="top" bgcolor="" role="module-content">
                                       <div>
                                         <div style="font-family: inherit; text-align: center"><span
-                                            style="color: #452f80; font-size: 24px"><strong>Carlashes -
+                                            style="color: #498999; font-size: 24px"><strong>Carlashes -
                                               UK</strong></span></div>
                                         <div></div>
                                       </div>
@@ -419,11 +419,11 @@ class EmailService {
                                       height="100%" valign="top" bgcolor="" role="module-content">
                                       <div>
                                         <div style="font-family: inherit; text-align: center"><span
-                                            style="color: #452f80"><strong>Your payment is confirmed!</strong></span>
+                                            style="color: #498999"><strong>Your payment is confirmed!</strong></span>
                                         </div>
                                         <br />
                                         <div style="font-family: inherit; text-align: center"><span
-                                            style="color: #452f80"><strong>Ref. ${orderData.orderRef}</strong></span></div>
+                                            style="color: #498999"><strong>Ref. ${orderData.orderRef}</strong></span></div>
                                         <div></div>
                                       </div>
                                     </td>
@@ -435,7 +435,7 @@ class EmailService {
                                 data-muid="bdzDb4B4pnnez4W7L1KpxJ.1">
                                 <tbody>
                                   <tr>
-                                    <td style="padding:0px 0px 15px 0px;" role="module-content" bgcolor="#452f80">
+                                    <td style="padding:0px 0px 15px 0px;" role="module-content" bgcolor="#498999">
                                     </td>
                                   </tr>
                                 </tbody>
@@ -484,18 +484,18 @@ class EmailService {
                                                       height="100%" valign="top" bgcolor="" role="module-content">
                                                       <div>
                                                         <div style="font-family: inherit; text-align: inherit"><span
-                                                            style="color: #452f80; font-family: &quot;times new roman&quot;, times, serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 700; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline">Product
+                                                            style="color: #498999; font-family: &quot;times new roman&quot;, times, serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 700; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline">Product
                                                             Ref.: </span><span
                                                             style="font-family: &quot;times new roman&quot;, times, serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 700; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline">${orderData.products[0].productRef}</span>
                                                         </div>
                                                         <div style="font-family: inherit; text-align: inherit"><span
-                                                            style="color: #452f80"><strong>Product:</strong></span><strong>
+                                                            style="color: #498999"><strong>Product:</strong></span><strong>
                                                           </strong>${orderData.products[0].name}</div>
                                                         <div style="font-family: inherit; text-align: inherit"><span
-                                                            style="color: #452f80"><strong>Quantity:</strong></span><strong>
+                                                            style="color: #498999"><strong>Quantity:</strong></span><strong>
                                                           </strong>${orderData.products[0]._doc.quantity}</div>
                                                         <div style="font-family: inherit; text-align: left"><span
-                                                            style="color: #452f80"><strong>Total
+                                                            style="color: #498999"><strong>Total
                                                               Price:</strong></span><strong> &nbsp;</strong>${orderData.orderTotalPrice}
                                                         </div>
                                                         <div></div>
@@ -517,7 +517,7 @@ class EmailService {
                                 data-muid="bdzDb4B4pnnez4W7L1KpxJ">
                                 <tbody>
                                   <tr>
-                                    <td style="padding:0px 0px 15px 0px;" role="module-content" bgcolor="#452f80">
+                                    <td style="padding:0px 0px 15px 0px;" role="module-content" bgcolor="#498999">
                                     </td>
                                   </tr>
                                 </tbody>
@@ -532,7 +532,7 @@ class EmailService {
                                       height="100%" valign="top" bgcolor="#ffffff" role="module-content">
                                       <div>
                                         <div style="font-family: inherit; text-align: center"><span
-                                            style="color: #452f80; font-size: 18px"><strong>Thanks for trusting
+                                            style="color: #498999; font-size: 18px"><strong>Thanks for trusting
                                               us!</strong></span></div>
                                         <div></div>
                                       </div>
@@ -578,7 +578,7 @@ class EmailService {
                                       height="100%" valign="top" bgcolor="">
                                       <div>
                                         <div style="font-family: inherit; text-align: center"><span
-                                            style="font-size: 28px; font-family: georgia, serif; color: #452f80"><strong>In
+                                            style="font-size: 28px; font-family: georgia, serif; color: #498999"><strong>In
                                               need of something else?</strong></span></div>
                                         <div></div>
                                       </div>
@@ -596,9 +596,9 @@ class EmailService {
                                         class="button-css__deep-table___2OZyb wrapper-mobile" style="text-align:center">
                                         <tbody>
                                           <tr>
-                                            <td align="center" bgcolor="#452f80" class="inner-td"
+                                            <td align="center" bgcolor="#498999" class="inner-td"
                                               style="border-radius:6px; font-size:16px; text-align:center; background-color:inherit;">
-                                              <a style="background-color:#452f80; border:0px solid #452f80; border-color:#452f80; border-radius:0px; border-width:0px; color:#ffffff; display:inline-block; font-family:verdana,geneva,sans-serif; font-size:16px; font-weight:normal; letter-spacing:1px; line-height:30px; padding:12px 20px 12px 20px; text-align:center; text-decoration:none; border-style:solid;"
+                                              <a style="background-color:#498999; border:0px solid #498999; border-color:#498999; border-radius:0px; border-width:0px; color:#ffffff; display:inline-block; font-family:verdana,geneva,sans-serif; font-size:16px; font-weight:normal; letter-spacing:1px; line-height:30px; padding:12px 20px 12px 20px; text-align:center; text-decoration:none; border-style:solid;"
                                                 href="${WEBSITE}" target="_blank">Continue Shopping!</a></td>
                                           </tr>
                                         </tbody>
