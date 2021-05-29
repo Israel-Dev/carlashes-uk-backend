@@ -1,5 +1,6 @@
 import {Request, Response} from 'express'
 import ResourceService from '../services/resource.service'
+import TreatmentService from '../services/treatment.service'
 
 const controller = {
     getMenuOptions: async (req: Request, res: Response) => {
@@ -46,6 +47,20 @@ const controller = {
         } catch(e) {
             console.error(e)
             res.status(500).send()
+        }
+    },
+    getTreatments: async(req: Request, res: Response) => {
+        try {
+            const treatments = (await TreatmentService.getAllTreatments()).map((el: any) => {
+                const json = el.toJSON()
+                delete json._id
+
+                return json
+            })
+
+            res.send(treatments)
+        } catch(e) {
+            console.error(e)
         }
     }
 }

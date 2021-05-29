@@ -124,14 +124,14 @@ class CalendarService {
     }
 
     async getTreatments() {
-        const treatements = (await TreatmentService.getAllTreatments()).map((treatment: any) => {
+        const treatments = (await TreatmentService.getAllTreatments()).map((treatment: any) => {
             const formated = treatment.toJSON()
             delete formated._id
 
             return formated
         })
 
-        return treatements
+        return treatments
     }
 
     async getPendigEvent(eventRef: string) {
