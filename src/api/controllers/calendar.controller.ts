@@ -34,18 +34,18 @@ const controller = {
             res.status(500).send()
         }
     },
-    insertEvent: async (req: Request, res: Response) => {
+    payBooking: async (req:Request, res: Response) => {
         try {
-            const { startTime, endTime } = req.body
+            const { startDate, endDate, treatment, clientName, email, phoneNumber } = req.body
+            
+            const eventRef = nanoid()
+            const FStartDate = new Date(startDate)
+            const FEndDate = new Date(endDate)
 
-            const isAvailable = await CalendarService.isAvailable(startTime, endTime)
+            const sessionID = await CalendarService.requestEvent(FStartDate, FEndDate, treatment, clientName, email, phoneNumber, eventRef)
 
-            if (!isAvailable) return res.status(403).send({ message: "Already have an appointment at that time" })
-
-            // await CalendarService.insertEvent(startTime, endTime)
-
-            res.send()
-        } catch (e) {
+            res.send({ sessionID })
+        } catch(e) {
             console.error(e)
             res.status(500).send()
         }
@@ -60,8 +60,8 @@ const controller = {
 
             await CalendarService.requestEvent(FStartDate, FEndDate, treatment, clientName, email, phoneNumber, eventRef)
 
-            await EmailService.sendEventRequest(FStartDate, FEndDate, treatment, clientName, email, phoneNumber, eventRef)
-            await EmailService.sendRequestToClient(FStartDate, FEndDate, treatment, clientName, email)
+            // await EmailService.sendEventRequest(FStartDate, FEndDate, treatment, clientName, email, phoneNumber, eventRef)
+            // await EmailService.sendRequestToClient(FStartDate, FEndDate, treatment, clientName, email)
 
             res.status(201).send({ message: "You'll be contacted by email or phone number confirming the appointment" })
         } catch (e) {
@@ -100,6 +100,22 @@ const controller = {
             res.status(200).send({ message: "The appointment is confirmed" })
 
             await CalendarService.deletePendingEvent(event_ref)
+        } catch (e) {
+            console.error(e)
+            res.status(500).send()
+        }
+    },
+    insertEvent: async (req: Request, res: Response) => {
+        try {
+            const { startTime, endTime } = req.body
+
+            const isAvailable = await CalendarService.isAvailable(startTime, endTime)
+
+            if (!isAvailable) return res.status(403).send({ message: "Already have an appointment at that time" })
+
+            // await CalendarService.insertEvent(startTime, endTime)
+
+            res.send()
         } catch (e) {
             console.error(e)
             res.status(500).send()

@@ -34,6 +34,11 @@ const pendingEventSchema = new Schema(
         phoneNumber: {
             type: String,
             required: true
+        },
+        isPaid: Boolean,
+        stripeSessionId: {
+            type: String,
+            required: false
         }
     },
     {

@@ -1,5 +1,5 @@
 import express from 'express'
-import cors, { CorsOptions } from 'cors'
+import cors from 'cors'
 import calendarRoute from './api/routes/calendar.route'
 import purchaseRoute from './api/routes/purchase.route'
 import resourceRoute from './api/routes/resource.route'

@@ -1,3 +1,8 @@
 {
-    "ignore": ["src/config/g.calendar/token.json"]
+    "restartable": "rs",
+    "ignore": ["src/config/g.calendar/token.json"],
+    "verbose": true,
+    "execMap": {
+        "ts": "node --require ts-node/register"
+    }
 }

@@ -1,6 +1,7 @@
-import { Model, Document } from "mongoose"
+// import { Model, Document } from "mongoose"
 import ProductService from "./product.service"
 import OrderService from "./order.service"
+import TreatmentService from './treatment.service'
 
 const { STRIPE_SECRET_KEY, WEBSITE } = process.env
 const stripe = require('stripe')(STRIPE_SECRET_KEY as string)
@@ -99,6 +100,34 @@ class PurchaseService {
         } catch (e) {
             console.error(e)
             return false
+        }
+    }
+
+    async createBookingSession(treatmentData: {name: string, schedulePrice: string}, eventRef: string, clientName: string) {
+        try {
+            const session = await stripe.checkout.sessions.create({
+                payment_method_types: ['card'],
+                line_items: [
+                    {
+                        price_data: {
+                            currency: 'gbp',
+                            product_data: {
+                                name: `${treatmentData.name} booking for ${clientName}`
+                            },
+                            unit_amount: Number(treatmentData.schedulePrice) * 100
+                        },
+                        quantity: 1
+                    }
+                ],
+                mode: 'payment',
+                success_url: `${WEBSITE}/booking-payment?event_ref=${eventRef}&success=true`,
+                cancel_url: `${WEBSITE}/booking-payment?event_ref=${eventRef}&canceled=true`,
+            })
+
+            const sessionID = session.id
+            return sessionID
+        } catch(e) {
+            console.error(e)
         }
     }
 }

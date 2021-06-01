@@ -5,6 +5,7 @@ import path from 'path'
 import calendarEvents from '../events/calendar.event'
 import { authorize } from '../../config/g.calendar/g.calendar.index'
 import TreatmentService from '../services/treatment.service'
+import PurchaseService from './purchase.service'
 import PendingEventModel from '../models/pending-event.model'
 
 const {
@@ -160,8 +161,8 @@ class CalendarService {
         const newStartTime = newStart.toLocaleTimeString('en-GB')
 
         const newEnd = new Date(endDateTime)
-        const newEndDate = newEnd.toLocaleDateString('en-GB')
-        const newEndTime = newEnd.toLocaleTimeString('en-GB')
+        // const newEndDate = newEnd.toLocaleDateString('en-GB')
+        // const newEndTime = newEnd.toLocaleTimeString('en-GB')
 
         const matchingEvent = events.find((event: { start: { dateTime: string }, end: { dateTime: string } }) => {
             const oldStart = new Date(event.start.dateTime)
@@ -169,8 +170,8 @@ class CalendarService {
             const oldStartTime = oldStart.toLocaleTimeString('en-GB')
 
             const oldEnd = new Date(event.end.dateTime)
-            const oldEndDate = oldEnd.toLocaleDateString('en-GB')
-            const oldEndTime = oldEnd.toLocaleTimeString('en-GB')
+            // const oldEndDate = oldEnd.toLocaleDateString('en-GB')
+            // const oldEndTime = oldEnd.toLocaleTimeString('en-GB')
 
             if (
                 (
@@ -208,7 +209,16 @@ class CalendarService {
         try {
             const requestedTreatment = await TreatmentService.getOneTreatment(treatmentRef)
 
-            // Store the event request on db
+            const bookingSessionID = await PurchaseService.createBookingSession(
+                {
+                    name: requestedTreatment.name,
+                    schedulePrice: requestedTreatment.toJSON().schedulePrice,
+                },
+                eventRef,
+                clientName
+            )
+
+            // Store the event request on db only after payment made
             const newEventReq = new PendingEventModel(
                 {
                     ref: eventRef,
@@ -217,13 +227,14 @@ class CalendarService {
                     treatment: { _id: requestedTreatment?._id },
                     clientName: clientName,
                     email: email,
-                    phoneNumber: phoneNumber
+                    phoneNumber: phoneNumber,
+                    isPaid: false,
+                    stripeSessionId: bookingSessionID
                 }
             )
 
-            const savedNewEventReq = await newEventReq.save()
-
-            return true
+            await newEventReq.save()
+            return bookingSessionID
         } catch (error) {
             console.error(error)
         }
@@ -242,7 +253,6 @@ class CalendarService {
         const response = await axios.post(`${GOOGLE_CALENDAR_API_URL}/calendars/${CALENDAR_ID}/events`,
             {
                 "start": {
-                    // new Date(year, month, day, hours, minutes, seconds, milliseconds);
                     "dateTime": new Date(start)
                 },
                 "end": {
@@ -268,9 +278,9 @@ class CalendarService {
 
     async deletePendingEvent(event_ref: string) {
         try {
-            await PendingEventModel.findOneAndDelete({ref: event_ref}).exec()
+            await PendingEventModel.findOneAndDelete({ ref: event_ref }).exec()
             return true
-        } catch(e) {
+        } catch (e) {
             console.error(e)
         }
     }
