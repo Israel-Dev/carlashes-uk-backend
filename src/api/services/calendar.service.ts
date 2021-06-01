@@ -1,8 +1,6 @@
 import fs from 'fs'
 import axios from 'axios'
 import path from 'path'
-
-import calendarEvents from '../events/calendar.event'
 import { authorize } from '../../config/g.calendar/g.calendar.index'
 import TreatmentService from '../services/treatment.service'
 import PurchaseService from './purchase.service'
@@ -161,8 +159,6 @@ class CalendarService {
         const newStartTime = newStart.toLocaleTimeString('en-GB')
 
         const newEnd = new Date(endDateTime)
-        // const newEndDate = newEnd.toLocaleDateString('en-GB')
-        // const newEndTime = newEnd.toLocaleTimeString('en-GB')
 
         const matchingEvent = events.find((event: { start: { dateTime: string }, end: { dateTime: string } }) => {
             const oldStart = new Date(event.start.dateTime)
@@ -170,12 +166,9 @@ class CalendarService {
             const oldStartTime = oldStart.toLocaleTimeString('en-GB')
 
             const oldEnd = new Date(event.end.dateTime)
-            // const oldEndDate = oldEnd.toLocaleDateString('en-GB')
-            // const oldEndTime = oldEnd.toLocaleTimeString('en-GB')
 
             if (
                 (
-                    // Same event as old one
                     this.isSameDate(oldStartDate, newStartDate) &&
                     oldStartTime === newStartTime
                 )
@@ -267,10 +260,7 @@ class CalendarService {
             }
         )
 
-        if (response.status === 200) {
-            calendarEvents.newEventConfirmed()
-            return
-        }
+        if (response.status === 200) return
 
         throw new Error(JSON.stringify({ code: response.status, message: "It wasn't possible to schedule appointment" }))
 
