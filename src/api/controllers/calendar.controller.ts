@@ -50,18 +50,23 @@ const controller = {
             res.status(500).send()
         }
     },
-    requestEvent: async (req: Request, res: Response) => {
+    requestBooking: async (req: Request, res: Response) => {
         try {
-            const { startDate, endDate, treatment, clientName, email, phoneNumber } = req.body
+            const { event_ref } = req.body
 
-            const eventRef = nanoid()
-            const FStartDate = new Date(startDate)
-            const FEndDate = new Date(endDate)
+            const event = await CalendarService.getPendigEvent(event_ref)
 
-            await CalendarService.requestEvent(FStartDate, FEndDate, treatment, clientName, email, phoneNumber, eventRef)
+            if (!event) return res.status(404).send({message: "The appointment was not found"})
 
-            // await EmailService.sendEventRequest(FStartDate, FEndDate, treatment, clientName, email, phoneNumber, eventRef)
-            // await EmailService.sendRequestToClient(FStartDate, FEndDate, treatment, clientName, email)
+            const FStartDate = new Date(event.startDate)
+            const FEndDate = new Date(event.endDate)
+            const clientName = event.clientName
+            const phoneNumber = event.phoneNumber
+            const email = event.email
+            const treatment: any = (await TreatmentService.getOneTreatmentById(event.treatment[0]._id)).name
+
+            await EmailService.sendEventRequest(FStartDate, FEndDate, treatment, clientName, email, phoneNumber, event_ref)
+            await EmailService.sendRequestToClient(FStartDate, FEndDate, treatment, clientName, email)
 
             res.status(201).send({ message: "You'll be contacted by email or phone number confirming the appointment" })
         } catch (e) {
@@ -97,7 +102,10 @@ const controller = {
 
             await EmailService.sendEventConfirmation(FStartDate, FEndDate, appointmentDetails)
 
-            res.status(200).send({ message: "The appointment is confirmed" })
+            res.status(200).send({ 
+                title: "Success",
+                message: "The appointment is confirmed" 
+            })
 
             await CalendarService.deletePendingEvent(event_ref)
         } catch (e) {
@@ -119,6 +127,25 @@ const controller = {
         } catch (e) {
             console.error(e)
             res.status(500).send()
+        }
+    },
+    cancelEvent: async (req: Request, res: Response) => {
+        try {
+            const { event_ref } = req.body
+
+            const isDeleted = await CalendarService.deletePendingEvent(event_ref)
+
+            if (isDeleted) {
+                return res.status(202).send({
+                    title: `Cancelled`,
+                    message: "Your booking was cancelled"
+                })
+            } else {
+                console.error(`The pending-event "${event_ref}" wasn't deleted due to an unkown reason`)
+                return res.send()
+            }
+        } catch(e) {
+            console.error(e)
         }
     }
 }

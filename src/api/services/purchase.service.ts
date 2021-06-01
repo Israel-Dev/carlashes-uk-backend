@@ -103,6 +103,23 @@ class PurchaseService {
         }
     }
 
+    async isPaidBooking(stripeSessionId: string) {
+        try {
+            if (!stripeSessionId) return false
+
+            const stripeSession = await stripe.checkout.sessions.retrieve(stripeSessionId)
+
+            if (stripeSession?.payment_status === "paid") {
+                return true
+            }
+
+            return false
+        } catch(e) {
+            console.error(e)
+            return false
+        }
+    }
+
     async createBookingSession(treatmentData: {name: string, schedulePrice: string}, eventRef: string, clientName: string) {
         try {
             const session = await stripe.checkout.sessions.create({

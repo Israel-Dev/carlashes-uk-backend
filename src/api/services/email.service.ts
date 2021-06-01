@@ -20,14 +20,11 @@ class EmailService {
     async sendRequestToClient(
         FStartDate: Date,
         FEndDate: Date,
-        treatmentRef: string,
+        treatmentName: string,
         clientName: string,
         email: string
     ) {
         try {
-
-            const requestedTreatment: any = await TreatmentService.getOneTreatment(treatmentRef)
-
             // Send email to bussiness with the appointment request information
             const msg = {
                 to: email,
@@ -51,7 +48,7 @@ class EmailService {
                             <tr style="text-align: center;">
                                 <td style="border: solid 1px #595858d1;">${FStartDate.toLocaleString('en-GB')}</td>
                                 <td style="border: solid 1px #595858d1;">${FEndDate.toLocaleString('en-GB')}</td>
-                                <td style="border: solid 1px #595858d1;">${requestedTreatment?.name}</td>
+                                <td style="border: solid 1px #595858d1;">${treatmentName}</td>
                                 <td style="border: solid 1px #595858d1;">${clientName}</td>
                             </tr>
                         </table>
@@ -74,16 +71,13 @@ class EmailService {
     async sendEventRequest(
         FStartDate: Date,
         FEndDate: Date,
-        treatmentRef: string,
+        treatmentName: string,
         clientName: string,
         email: string,
         phoneNumber: string,
         eventRef: string
     ) {
         try {
-
-            const requestedTreatment: any = await TreatmentService.getOneTreatment(treatmentRef)
-
             // Send email to bussiness with the appointment request information
             const msg = {
                 to: SEND_GRID_TO_EMAIL as string,
@@ -108,7 +102,7 @@ class EmailService {
                             <tr style="text-align: center;">
                                 <td style="border: solid 1px #595858d1;">${FStartDate.toLocaleString('en-GB')}</td>
                                 <td style="border: solid 1px #595858d1;">${FEndDate.toLocaleString('en-GB')}</td>
-                                <td style="border: solid 1px #595858d1;">${requestedTreatment?.name}</td>
+                                <td style="border: solid 1px #595858d1;">${treatmentName}</td>
                                 <td style="border: solid 1px #595858d1;">${clientName}</td>
                                 <td style="border: solid 1px #595858d1;">${email}</td>
                                 <td style="border: solid 1px #595858d1;">${phoneNumber}</td>

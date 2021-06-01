@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import CalendarService from '../services/calendar.service'
+import PurchaseService from '../services/purchase.service'
 
 const middlewares = {
     hasTimeFields: (req: Request, res: Response, next: Function) => {
@@ -20,7 +21,7 @@ const middlewares = {
             !phoneNumber
         ) {
             console.error("Missing fields in request")
-            return res.status(400).send({message: "There are fields missing"})
+            return res.status(400).send({ message: "There are fields missing" })
         }
 
         next()
@@ -33,7 +34,10 @@ const middlewares = {
 
             if (!isAvailable) {
                 console.error("Request made of unavaible time frame")
-                return res.status(403).send({message: "The choosen time frame is not available"})
+                return res.status(403).send({ 
+                    title: "Unavaible",
+                    message: "The choosen time frame is not available"
+                })
             }
 
             next()
@@ -46,12 +50,44 @@ const middlewares = {
         try {
             const { event_ref } = req.body
 
-            if (!event_ref) return res.status(400).send({message: "No event ref was sent"})
+            if (!event_ref) return res.status(400).send({ 
+                title: "No Booking Reference",
+                message: "No booking ref was not sent in request" 
+            })
 
             next()
-        } catch(e) {
+        } catch (e) {
             console.error(e)
             res.status(500).send()
+        }
+    },
+    isPaid: async (req: Request | any, res: Response, next: Function) => {
+        try {
+            const { event_ref } = req.body
+
+            const event = await CalendarService.getPendigEvent(event_ref)
+
+            if (!event) return res.status(404).send({
+                title: "Not found",
+                message: "The desired booking wasn't found"
+            })
+
+            const isPaid = await PurchaseService.isPaidBooking(event.stripeSessionId)
+
+            if (isPaid) {
+                event.isPaid = true
+                event.save()
+
+                return next()
+            }
+
+            res.status(400).send({ 
+                title: `Unpaid booking`,
+                message: `You didn't pay for the desired booking` 
+            })
+        } catch (e) {
+            console.error(e)
+            res.status(400).send({ message: `An error occured` })
         }
     }
 }

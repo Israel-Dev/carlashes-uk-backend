@@ -8,8 +8,9 @@ router.get("/getCalendars", controller.getCalendars)
 router.get("/getEvents", controller.getEvents)
 router.get("/getTreatments", controller.getTreatments)
 router.post("/payBooking", mw.hasAllFields, mw.isAvailable, controller.payBooking)
-router.post("/requestEvent", mw.hasAllFields, mw.isAvailable, controller.requestEvent)
-router.post('/confirmEvent', mw.hasEventRef, mw.isAvailable, controller.confirmEvent)
+router.post("/requestBooking", mw.isAvailable, mw.isPaid, controller.requestBooking)
+router.post('/confirmBooking', mw.hasEventRef, mw.isAvailable, mw.isPaid, controller.confirmEvent)
+router.delete('/cancelBooking', mw.hasEventRef, controller.cancelEvent)
 router.post("/insertEvent", mw.hasTimeFields, controller.insertEvent)
 
 
