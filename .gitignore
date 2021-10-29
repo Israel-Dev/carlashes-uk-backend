@@ -1,6 +1,7 @@
 /build
 /node_modules
 /env
+/tokens
 /src/config/g.calendar/token.json
 
 package-lock.json

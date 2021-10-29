@@ -1,0 +1,25 @@
+####################
+### INSTRUCTIONS ###
+
+## 0 - "docker-compose build"
+# Always that we have a change in the code we need to rebuild the image before executing the "run" command.
+
+## 1 - To run the container correclty, first execute "docker-compose run carlashes-uk_node-container".
+# This will prompt a shell where you'll had to enter some information to create a OAuth token that will be stored in the host.
+
+## 2 - Then run "docker-compose -f docker-compose_dev.yml up -d --build"
+
+version: "3.9"
+
+services:
+  carlashes-uk_node-container:
+    build: .
+    image: carlashes-uk/node-image
+    stdin_open: true
+    tty: true
+    env_file:
+      - ./env/dev.env
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./tokens/g.calendar:/app/tokens/g.calendar/

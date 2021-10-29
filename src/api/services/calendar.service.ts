@@ -28,11 +28,11 @@ class CalendarService {
     constructor() {
         try {
             this.tokenFile = JSON.parse(
-                fs.readFileSync(path.resolve(__dirname, "../../config/g.calendar/token.json"), 'utf8')
+                fs.readFileSync(path.resolve(__dirname, "../../../tokens/g.calendar/token.json"), 'utf8')
             )
 
             this.tokenString = `${this.tokenFile.token_type} ${this.tokenFile.access_token}`
-        } catch (e) {
+        } catch (e : any) {
             console.error(e.message)
 
             authorize(JSON.parse(`${GOOGLE_CALENDAR_CREDS}`), (response: any) => {
@@ -46,7 +46,7 @@ class CalendarService {
 
     rewriteLocalToken(newToken: any) {
         fs.writeFileSync(
-            path.resolve(__dirname, "../../config/g.calendar/token.json"),
+            path.resolve(__dirname, "../../../tokens/g.calendar/token.json"),
             JSON.stringify(newToken)
         )
     }
@@ -58,7 +58,7 @@ class CalendarService {
             const response = await axios.get(`https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${localTokenJSON.access_token}`)
 
             if (response.status === 200) return true
-        } catch (e) {
+        } catch (e: any) {
             console.error("Google token validation returned with code:", e.response.status)
             return false
         }

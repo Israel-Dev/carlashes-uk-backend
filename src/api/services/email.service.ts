@@ -62,7 +62,7 @@ class EmailService {
 
             await sgMail.send(msg)
             return true
-        } catch (e) {
+        } catch (e: any) {
             console.error(e)
             if (e.message) console.error(e.response.body)
         }
@@ -124,7 +124,7 @@ class EmailService {
 
             await sgMail.send(msg)
             return true
-        } catch (e) {
+        } catch (e: any) {
             console.error(e)
             if (e.message) console.error(e.response.body)
         }
