@@ -9,10 +9,14 @@
 
 ## 2 - Then run "docker-compose -f docker-compose_prod.yml up -d --build"
 
+## Note:
+#  If we get 400 on container logs, delete token from volume and redo all the steps from the beginning.
+
 version: "3.9"
 
 services:
   carlashes-uk_node-container:
+    build: .
     image: carlashes-uk/node-image
     stdin_open: true
     tty: true
