@@ -1,13 +1,22 @@
-import { Request, Response } from 'express'
+import { Request, Response } from "express";
 
 const middlewares = {
-    hasProductRef: (req: Request, res: Response, next: Function) => {
-        const { productRef } = req.query
+  hasProductRef: (req: Request, res: Response, next: Function) => {
+    const { productRef } = req.query;
 
-        if (!productRef) return res.status(400).send({ message: "No product ref sent" })
+    if (!productRef)
+      return res.status(400).send({ message: "No product ref sent" });
 
-        next()
-    }
-}
+    next();
+  },
+  hasTreatmentRef: (req: Request, res: Response, next: Function) => {
+    const { treatmentRef } = req.query;
 
-export default middlewares
+    if (!treatmentRef)
+      return res.status(400).send({ message: "No treatment ref sent" });
+
+    next();
+  },
+};
+
+export default middlewares;
