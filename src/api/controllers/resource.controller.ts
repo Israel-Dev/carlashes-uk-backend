@@ -88,8 +88,6 @@ const controller = {
   getTreatmentSubTypeImages: async (req: Request, res: Response) => {
     try {
       const { treatmentRef, subTypeRef } = req.query;
-      console.log("treatmentRef", treatmentRef);
-      console.log("subTypeRef", subTypeRef);
 
       const subTypeImages = await TreatmentService.getTreatmentSubTypeImages(
         treatmentRef as string,
