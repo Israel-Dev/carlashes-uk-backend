@@ -17,6 +17,15 @@ const middlewares = {
 
     next();
   },
+  hasTreatmentSubTypeRef: (req: Request, res: Response, next: Function) => {
+    const { subTypeRef } = req.query;
+
+    if (!subTypeRef) {
+      return res.status(400).send({ message: "No treatment subtype ref sent" });
+    }
+
+    next();
+  },
 };
 
 export default middlewares;

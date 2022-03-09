@@ -14,6 +14,12 @@ router.get(
   controller.getTreatmentData
 );
 router.get(
+  "/getTreatmentSubTypeImages",
+  mw.hasTreatmentRef,
+  mw.hasTreatmentSubTypeRef,
+  controller.getTreatmentSubTypeImages
+);
+router.get(
   "/getRecomendations",
   mw.hasProductRef,
   controller.getRecommendations

@@ -200,30 +200,32 @@ class CalendarService {
         treatmentRef
       );
 
-      const bookingSessionID = await PurchaseService.createBookingSession(
-        {
-          name: requestedTreatment.name,
-          schedulePrice: requestedTreatment.toJSON().schedulePrice,
-        },
-        eventRef,
-        clientName
-      );
+      if (requestedTreatment) {
+        const bookingSessionID = await PurchaseService.createBookingSession(
+          {
+            name: requestedTreatment.name,
+            schedulePrice: requestedTreatment.toJSON().schedulePrice,
+          },
+          eventRef,
+          clientName
+        );
 
-      // Store the event request on db only after payment made
-      const newEventReq = new PendingEventModel({
-        ref: eventRef,
-        startDate: FStartDate,
-        endDate: FEndDate,
-        treatment: { _id: requestedTreatment?._id },
-        clientName: clientName,
-        email: email,
-        phoneNumber: phoneNumber,
-        isPaid: false,
-        stripeSessionId: bookingSessionID,
-      });
+        // Store the event request on db only after payment made
+        const newEventReq = new PendingEventModel({
+          ref: eventRef,
+          startDate: FStartDate,
+          endDate: FEndDate,
+          treatment: { _id: requestedTreatment?._id },
+          clientName: clientName,
+          email: email,
+          phoneNumber: phoneNumber,
+          isPaid: false,
+          stripeSessionId: bookingSessionID,
+        });
 
-      await newEventReq.save();
-      return bookingSessionID;
+        await newEventReq.save();
+        return bookingSessionID;
+      }
     } catch (error) {
       console.error(error);
     }

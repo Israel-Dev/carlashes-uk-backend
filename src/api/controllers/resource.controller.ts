@@ -85,6 +85,27 @@ const controller = {
       console.error(e);
     }
   },
+  getTreatmentSubTypeImages: async (req: Request, res: Response) => {
+    try {
+      const { treatmentRef, subTypeRef } = req.query;
+      console.log("treatmentRef", treatmentRef);
+      console.log("subTypeRef", subTypeRef);
+
+      const subTypeImages = await TreatmentService.getTreatmentSubTypeImages(
+        treatmentRef as string,
+        subTypeRef as string
+      );
+
+      if (!subTypeImages || !subTypeImages.length)
+        return res.status(404).send({
+          message: "No images were found for the seleced Treatment SubType",
+        });
+
+      res.send(subTypeImages);
+    } catch (e) {
+      console.error(e);
+    }
+  },
 };
 
 export default controller;
