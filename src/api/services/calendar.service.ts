@@ -118,15 +118,50 @@ class CalendarService {
     return events;
   }
 
-  async getTreatments() {
-    const treatments = (await TreatmentService.getAllTreatments()).map(
-      (treatment: any) => {
-        const formated = treatment.toJSON();
-        delete formated._id;
+  async getTreatments(treatmentRef?: string) {
+    let treatments;
 
-        return formated;
-      }
-    );
+    if (treatmentRef) {
+      treatments = (await TreatmentService.getOneTreatment(
+        treatmentRef
+      )) as any;
+      const formated = treatments.toJSON();
+      delete formated._id;
+      const subTypes = formated.subTypes;
+
+      treatments = [
+        {
+          schedulePrice: formated.schedulePrice,
+          name: formated.name,
+          ref: formated.ref,
+          subTypes: subTypes.map((subType: any) => {
+            delete subType.images;
+            delete subType.mainImage;
+
+            return subType;
+          }),
+        },
+      ];
+    } else {
+      treatments = (await TreatmentService.getAllTreatments()).map(
+        (treatment: any) => {
+          const formated = treatment.toJSON();
+          delete formated._id;
+          delete formated.images;
+          delete formated.description;
+          delete formated.teaser;
+
+          return {
+            ...formated,
+            subTypes: formated.subTypes.map((subType: any) => {
+              delete subType.mainImage;
+              delete subType.images;
+              return subType;
+            }),
+          };
+        }
+      );
+    }
 
     return treatments;
   }
@@ -190,6 +225,8 @@ class CalendarService {
     FStartDate: Date,
     FEndDate: Date,
     treatmentRef: string,
+    subTreatmentRef: string,
+    treatmentType: string,
     clientName: string,
     email: string,
     phoneNumber: string,
@@ -201,9 +238,15 @@ class CalendarService {
       );
 
       if (requestedTreatment) {
+        const requestedSubTreatment = requestedTreatment
+          .toJSON()
+          .subTypes.find((subType) => subType.ref === subTreatmentRef);
+
+        if (!requestedSubTreatment) return null;
+
         const bookingSessionID = await PurchaseService.createBookingSession(
           {
-            name: requestedTreatment.name,
+            name: `${requestedTreatment.name} - ${requestedSubTreatment?.name}`,
             schedulePrice: requestedTreatment.toJSON().schedulePrice,
           },
           eventRef,
@@ -215,12 +258,13 @@ class CalendarService {
           ref: eventRef,
           startDate: FStartDate,
           endDate: FEndDate,
-          treatment: { _id: requestedTreatment?._id },
+          treatment: { _id: requestedTreatment._id },
           clientName: clientName,
           email: email,
           phoneNumber: phoneNumber,
           isPaid: false,
           stripeSessionId: bookingSessionID,
+          subTreatmentRef: requestedSubTreatment.ref,
         });
 
         await newEventReq.save();

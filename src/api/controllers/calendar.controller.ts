@@ -27,7 +27,12 @@ const controller = {
   },
   getTreatments: async (req: Request, res: Response) => {
     try {
-      const treatments = await CalendarService.getTreatments();
+      const { treatmentRef } = req.query;
+
+      const treatments = await CalendarService.getTreatments(
+        treatmentRef as string | undefined
+      );
+
       res.send(treatments);
     } catch (e) {
       console.error(e);
@@ -36,8 +41,16 @@ const controller = {
   },
   payBooking: async (req: Request, res: Response) => {
     try {
-      const { startDate, endDate, treatment, clientName, email, phoneNumber } =
-        req.body;
+      const {
+        startDate,
+        endDate,
+        treatment,
+        subTreatmentRef,
+        clientName,
+        email,
+        phoneNumber,
+        treatmentType,
+      } = req.body;
 
       const eventRef = nanoid();
       const FStartDate = new Date(startDate);
@@ -47,6 +60,8 @@ const controller = {
         FStartDate,
         FEndDate,
         treatment,
+        subTreatmentRef,
+        treatmentType,
         clientName,
         email,
         phoneNumber,
