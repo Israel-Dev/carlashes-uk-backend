@@ -19,7 +19,15 @@ const controller = {
     try {
       const events = await CalendarService.getEvents();
 
-      res.send(events);
+      const normalizedEvents = {
+        ...events,
+        items: events.items.map((item: any) => ({
+          ...item,
+          summary: "Busy",
+        })),
+      };
+
+      res.send(normalizedEvents);
     } catch (e) {
       console.error(e);
       res.status(500).send();
