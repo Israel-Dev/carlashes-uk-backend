@@ -178,11 +178,19 @@ const controller = {
         event.treatment[0]._id
       );
 
+      const subTreatment = treatment.subTypes.find(
+        (subType: any) => subType.ref === event.subTreatmentRef
+      );
+
+      const treatmentName = `${treatment?.name} - ${subTreatment.name} ${
+        event.treatmentType ? `(${event.treatmentType})` : ""
+      }`;
+
       const appointmentDetails = {
         clientName: event?.clientName,
         phoneNumber: event?.phoneNumber,
         email: event?.email,
-        treatmentName: treatment?.name,
+        treatmentName,
       };
 
       await CalendarService.insertEvent(
