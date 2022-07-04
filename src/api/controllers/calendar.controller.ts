@@ -85,20 +85,40 @@ const controller = {
           .status(404)
           .send({ message: "The appointment was not found" });
 
+      const subTreatmentRef = event.subTreatmentRef;
+      if (!subTreatmentRef)
+        return res
+          .status(404)
+          .send({ message: "The subTreatmentRef sent was not found" });
+      const treatment = await TreatmentService.getOneTreatmentById(
+        event.treatment[0]._id
+      );
+
+      const treatmentType = event.treatmentType;
       const FStartDate = new Date(event.startDate);
       const FEndDate = new Date(event.endDate);
       const clientName = event.clientName;
       const phoneNumber = event.phoneNumber;
       const email = event.email;
-      const treatment = (
-        await TreatmentService.getOneTreatmentById(event.treatment[0]._id)
-      )?.name;
 
       if (treatment) {
+        const subTreatment = treatment.subTypes.find(
+          (subType) => subType.ref === subTreatmentRef
+        );
+
+        if (!subTreatment)
+          return res
+            .status(404)
+            .send({ message: "SubTreatment was not found" });
+
+        const treatmentName = `${treatment.name} - ${subTreatment.name} ${
+          treatmentType ? `(${treatmentType})` : ""
+        }`;
+
         await EmailService.sendEventRequest(
           FStartDate,
           FEndDate,
-          treatment,
+          treatmentName,
           clientName,
           email,
           phoneNumber,
@@ -107,7 +127,7 @@ const controller = {
         await EmailService.sendRequestToClient(
           FStartDate,
           FEndDate,
-          treatment,
+          treatmentName,
           clientName,
           email
         );

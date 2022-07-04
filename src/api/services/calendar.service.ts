@@ -246,7 +246,7 @@ class CalendarService {
 
         const bookingSessionID = await PurchaseService.createBookingSession(
           {
-            name: `${requestedTreatment.name} - ${requestedSubTreatment?.name}`,
+            name: `${requestedTreatment.name} - ${requestedSubTreatment?.name} (${treatmentType})`,
             schedulePrice: requestedTreatment.toJSON().schedulePrice,
           },
           eventRef,
@@ -265,6 +265,7 @@ class CalendarService {
           isPaid: false,
           stripeSessionId: bookingSessionID,
           subTreatmentRef: requestedSubTreatment.ref,
+          treatmentType,
         });
 
         await newEventReq.save();

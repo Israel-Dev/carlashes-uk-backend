@@ -44,6 +44,10 @@ const pendingEventSchema = new Schema(
       type: String,
       required: true,
     },
+    treatmentType: {
+      type: String,
+      required: false,
+    },
   },
   {
     collection: "pending-events",
