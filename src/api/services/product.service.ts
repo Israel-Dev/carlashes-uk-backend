@@ -37,9 +37,13 @@ class ProductService {
 
       for (let i = 0; i < products.length; i++) {
         const ref = products[i].ref;
-        const product: any = await ProductModel.findOne({
+        let product: any = await ProductModel.findOne({
           productRef: ref,
         }).exec();
+
+        if (!product)
+          product = await LashProductModel.findOne({ productRef: ref }).exec();
+
         product._doc["quantity"] = products[i].quantity;
         productsArr.push(product);
       }
