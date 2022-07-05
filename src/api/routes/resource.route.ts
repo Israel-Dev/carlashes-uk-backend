@@ -24,5 +24,6 @@ router.get(
   mw.hasProductRef,
   controller.getRecommendations
 );
+router.get("/lashesProducts", controller.getLashesProducts);
 
 export default router;

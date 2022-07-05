@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ResourceService from "../services/resource.service";
 import TreatmentService from "../services/treatment.service";
+import ProductService from "../services/product.service";
 
 const controller = {
   getMenuOptions: async (req: Request, res: Response) => {
@@ -102,6 +103,15 @@ const controller = {
       res.send(subTypeImages);
     } catch (e) {
       console.error(e);
+    }
+  },
+  getLashesProducts: async (req: Request, res: Response) => {
+    try {
+      const lashProducts = await ProductService.getLashesProducts();
+      res.send(lashProducts);
+    } catch (e) {
+      console.error("Error in getLashesProducts:", e);
+      res.status(500).send();
     }
   },
 };
