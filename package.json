@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node ./build/index.js",
+    "start": "tsc && env-cmd -f ./env/prod.env && node ./build/index.js",
     "build": "tsc",
     "build-dev": "tsc && env-cmd -f ./env/dev.env node ./build/index.js",
-    "deploy": "tsc && cd .. && git subtree push --prefix backend/ heroku master",
     "dev": "env-cmd -f ./env/dev.env nodemon --config src/config/nodemon/nodemon.json --exec ts-node src/index.ts",
     "dev::debug": "env-cmd -f ./env/dev.env nodemon --config src/config/nodemon/nodemon.json --inspect src/index.ts",
     "dev-prod": "env-cmd -f ./env/prod.env nodemon --config src/config/nodemon/nodemon.json --exec ts-node src/index.ts",
