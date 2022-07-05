@@ -22,4 +22,4 @@ services:
     ports:
       - "3001:3001"
     volumes:
-      - ./tokens/g.calendar:/app/tokens/g.calendar/
+      - ./src/config/g.calendar:/app/src/config/g.calendar/
