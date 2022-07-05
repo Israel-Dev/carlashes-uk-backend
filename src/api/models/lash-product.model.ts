@@ -11,6 +11,7 @@ const lashProductSchema = new Schema(
     productRef: String,
     description: String,
     mainImage: String,
+    title: String,
   },
   {
     collection: "lashes-products",
@@ -24,6 +25,7 @@ export interface ILashProduct {
   productRef: string;
   description: string;
   mainImage: string;
+  title: string;
 }
 
 lashProductSchema.set("toJSON", {

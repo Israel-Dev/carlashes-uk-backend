@@ -28,12 +28,18 @@ const controller = {
     try {
       const { productRef } = req.query;
 
-      const productData = await ResourceService.getProductData(
+      let productData = await ResourceService.getProductData(
         productRef as string
       );
 
       if (!productData)
+        productData = await ResourceService.getLashProductData(
+          productRef as string
+        );
+
+      if (!productData) {
         return res.status(404).send({ message: "The product was not found" });
+      }
 
       res.send(productData);
     } catch (e) {

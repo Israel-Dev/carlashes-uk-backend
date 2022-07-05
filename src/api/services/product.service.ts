@@ -11,6 +11,17 @@ class ProductService {
     }
   }
 
+  async getOneLashProduct(ref: string) {
+    try {
+      const product = await LashProductModel.findOne({
+        productRef: ref,
+      }).exec();
+      return product;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   async getAllProducts() {
     try {
       const products = await ProductModel.find({}).exec();
